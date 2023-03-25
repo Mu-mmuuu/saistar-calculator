@@ -44,9 +44,9 @@ def form():
   return render_template("form.html")
 
 
-# @app.route("/idollist")
-# def idollist():
-#   return render_template("idollist.html",idolheader=idolheader, idoldata = idoldata)
+@app.route("/idollist")
+def idollist():
+  return render_template("idollist.html",idolheader=idolheader, idoldata = idoldata)
 
 # @app.route("/songlist")
 # def songlist():
