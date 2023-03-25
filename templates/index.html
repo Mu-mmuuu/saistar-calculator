@@ -1,0 +1,107 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+    <header>
+        <h1>サイスタスコア計算機</h1>
+    </header>
+    <main>
+        <form action="/result">
+            <div class = "song">
+                <label class="hint"><span>曲名を選択してください：</span>
+                    <select id="song_name">
+                        <option value="song_1">DRIVE A LIVE</option>
+                        <option value="song_2">Beyond The Dream</option>
+                        <option value="song_3">Growing Smiles!</option>
+                        <option value="song_4">BRAND NEW FIELD</option>
+                        <option value="song_5">STARLIGHT CELEBRATE!</option>
+                        <option value="song_6">The 1st Movement～未来のための二重奏～</option>
+                        <option value="song_7">スマイル・エンゲージ</option>
+                        <option value="song_8">VICTORY BELIEVER</option>
+                        <option value="song_9">勇敢なるキミへ</option>
+                        <option value="song_10">喝彩!～花鳥風月～</option>
+                        <option value="song_11">HIGH JUMP NO LIMIT</option>
+                        <option value="song_12">バーニン・クールで輝いて</option>
+                        <option value="song_13">Cafe Parade!</option>
+                        <option value="song_14">うぇるかむ・はぴきらパーク!</option>
+                        <option value="song_15">∞ Possibilities</option>
+                        <option value="song_16">強く尊き獣たち</option>
+                        <option value="song_17">夢色VOYAGER</option>
+                        <option value="song_18">Legacy of Spirit</option>
+                        <option value="song_19">We're the one</option>
+                        <option value="song_20">Not Alone</option>
+                        <option value="song_21">想いはETERNITY</option>
+                        <option value="song_22">Plus 1 Good Day!</option>
+                        <option value="song_23">Study Equal Magic!</option>
+                        <option value="song_24">Pave Etoiles</option>
+                        <option value="song_25">OUR SONG -それは世界でひとつだけ-</option>
+                        <option value="song_26">Time Before Time</option>
+                        <option value="song_27">LEADING YOUR DREAM</option>
+                        <option value="song_28">いとをかし！～一彩×合彩～</option>
+                        <option value="song_29">True Horizon</option>
+                        <option value="song_30">MOON NIGHTのせいにして</option>
+                        <option value="song_31">はるかぜバトン</option>
+                        <option value="song_32">ANYWHERE</option>
+                        <option value="song_33">Infinite Octave!</option>
+                        <option value="song_34">RED HOT BEAT!!</option>
+                        <option value="song_35">K.now O.nly</option>
+                        <option value="song_36">リトルハピネス</option>
+                        <option value="song_37">Made in「 ♪ 」</option>
+                        <option value="song_38">Swing Your Leaves</option>
+                        <option value="song_39">ROUTE77</option>
+                        <option value="song_40">Reason!!</option>
+                        <option value="song_41">String of Fate</option>
+                        <option value="song_42">Inner Dignity</option>
+                        <option value="song_43">祝彩！</option>
+                        <option value="song_44">Multiple Entertainment Show!</option>
+                        <option value="song_45">はんどめいど・きみはーと！</option>
+                        <option value="song_46">Change to Chance</option>
+                        <option value="song_47">Take a StuMp! 01</option>
+                        <option value="song_48">Take a StuMp! 02</option>
+                        
+                </select></label>
+                
+            </div>
+
+            <div class = "idol">
+                <label id = "idol_icon" >アイドル番号を6人分入力してください：</label><br>
+                <input type="text" id="idol_number" required minlength="1"></label><br>
+                <a href="/idollist">アイドル番号はこちらで検索</a>
+            </div>
+            <div class = "detail">
+                <div class = "appeal_pskill">
+                    <label>アピール値：<input type="number" id="appeal" required minlength="1" maxlength="8"></label>
+                    <br><label>プロデューサースキル：<select id="Pskill_name" size="1">
+                        <option value="expand">延長</option>
+                        <option value="chance">確率UP</option>
+                        <option value="enhance">効果UP</option>
+                        <option value="support">その他</option>
+                    </select></label>
+                    <br><label>Lv：<input type="number" id="Pskill_Lv" required minlength="1" maxlength="1" value="1" max="3" min="1"></label>
+                </div>
+                <div class = "option">
+                    <label>AUTOライブ：<input type="checkbox" id = "mode"></label>
+                    <br><label>試行回数：<input type="number" id="trial" required minlength="1" value = "1000" size="6" max="10000"></label>
+                </div>
+            </div>
+            <button type="submit" id="start_button" onclick="location.href='/result'">計算開始</button>
+        </form>
+        <section id="help_window">
+            <dl>
+                <dt>プロデューサースキル</dt>
+                <dd>
+                    <table>
+                        <tr><th>スキル名</th><th>Lv上限</th></tr>
+                        <tr><td>延長</td><td>3</td></tr>
+                        <tr><td>確率UP</td><td>2</td></tr>
+                        <tr><td>効果UP</td><td>1</td></tr>
+                        <tr><td>その他</td><td>1</td></tr>
+                    </table>
+                </dd>
+            </dl>
+        </section>
+        <!-- <section id ="select_window">
+            <p>楽曲</p>
+        </section> -->
+    </main>
+
+   {% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<header>
+    <h1>計算結果</h1>
+	</header>
+
+		<!-- <a href="/songlist">楽曲の略称リストはこちら</a> -->
+	<p>　楽曲： {{ song_fullname }}<br>
+	　アピール値：{{ appeal }}<br>
+	　プロデューサースキル：{{ Pskill_fullname}}{{Pskill_Lv_original}}</p>
+	<table id = 'inputTable'>
+		<thead>
+			<tr>
+				{% for i in resultidolheader: %}
+				<th>{{ i }}</th>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+			{% for i in resultidoldata: %}
+				<td><img class="idol_icon" src="{{url_for('static', filename='img/idol/'+i)}}"  alt= {{i}} ></td>
+			{% endfor %}
+			</tr>
+		</tbody>
+
+	</table>
+    <table id = 'resultTable'>
+		<thead>
+			<tr>
+				{% for i in resultheader: %}
+				<th>{{ i }}</th>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for i in resultdata: %}
+			<tr>
+				{% for j in i: %}
+						<td>{{ j }}</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+    <p></p>
+    <!-- <a href="https://wikiwiki.jp/sidem-gstars/">データ引用元：サイスタwiki</a> -->
+{% endblock %}
