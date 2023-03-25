@@ -66,7 +66,7 @@ def score_calculator():
 
     # cnx.close()
 
-    filename = '/static/B_スコア予測用data_2.4.xlsx'
+    filename = './static/B_スコア予測用data_2.4.xlsx'
     DB_song = pd.read_excel(filename,index_col='No',sheet_name='song')
     DB_song.reset_index(inplace=True)
     DB_song = DB_song.to_numpy()
