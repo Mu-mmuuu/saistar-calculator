@@ -1,11 +1,32 @@
 /* @charset = "utf-8"; */
-header{
+.page-header{
+    background-color:mediumaquamarine;
+    color:#fff;
+    /* text-align:center; */
+    height:auto;width:auto;
+    margin: 0px;
+    padding:20px 40px;
+    font-weight: bold;
+    font-size: 150%;
+    text-shadow:2px 3px 5px #124c36;
+}
+/* .article{padding:30px} */
+.article-header{
+    vertical-align: center;
+    background-color:rgb(202, 246, 231);
+    border-top:10px solid;
+    border-image:linear-gradient(to left,mediumaquamarine,rgb(37, 126, 97));
+    border-image-slice: 1;
+    padding:10px 50px;
+    text-align:left;
+}
+/* header{
   color:#196053; 
   background-color: #a8f5dc; 
   margin-bottom:3%; 
   padding: 0.1% 0% 0.1% 3%; 
   border-bottom: solid 3px #196053
-} 
+}  */
 body{
   margin:0px;
   font-family:Arial, Helvetica, sans-serif; 
@@ -13,72 +34,24 @@ body{
   font-weight:bold;
 }
 
-article{
-  margin:1%; 
-  padding:0.5%; 
-  width:95%;
-}
-
 main{display:flex; }
-#help_window{
-  margin:1%; 
-  padding:0.5%; 
-  width:50%;
+
+.song{
+  margin-bottom:5%;
+  padding:5% 5% 2% 10%;
 }
-#preview_window{
-  display:block;
-  align-content:space-between;
-  margin:1% 1% 1% 3%; 
-  padding:0.5%; 
-  width:50%; 
-  background-color:#c8ecf9;
-  border-radius:2%;
-  height:100%
+.idol,.appeal_pskill, .option {
+  padding:2% 5% 2% 10%;
+  margin-bottom:5%;
 }
-.song{margin-bottom:10%; padding:2%;}
-.idol{
-  padding:2%;
-  line-height:30px; 
-  margin-bottom:10%;
-}
-.appeal_pskill{padding:2%;margin-bottom:5%;}
-.option{padding:2%;margin-bottom:5%;}
 #start_button{
   background-color:#a8f5dc;
   text-align:center; 
   padding:2%; 
   margin: 5% 1% 5% 75%;
-}
-
-table {border-collapse:collapse;}
-th,td {border: solid 1px #194969;padding:2%;}
-th{background-color:#c8ecf9; white-space: nowrap;}
-dd{color:#5c808f;font-size:0.9em;}
-
-#inputTable{
-  text-align:center;
-  width: 400px;
-  padding:2%; 
-  margin: 2%;
-}
-
-
-#resultTable{
-  text-align:center; 
-  padding:1%; 
-  margin: 2%;
-  width: 300px;
-}
-
-/* .hint{
-  position: relative;
   cursor: pointer;
-  display: inline-block;
-} */
-/* .hint span{
-  margin:0;
-  padding:0;
-} */
+}
+
 .description{
   display:none;
   position: absolute;
@@ -106,130 +79,4 @@ dd{color:#5c808f;font-size:0.9em;}
   left: -10%;
 }
 
-.fixedcolumn{
-  position:sticky;
-  top: 0;
-}
 
-.idol_icon{width:50px; height:50px;
-}
-.song_icon{width:75px; height:75px;
-}
-.method_pic{width: 100vw;
-}
-
-h1 {
-  color      : #196053;
-  font-weight   : bold;
-  font-size   : 20px;
-}
-p {
-  color      : #777;
-  /* font-size   : 20px; */
-}
-
-/* === フィルタボタン ============================ */
-.tfArea{
-  display    : block;
-  position   : relative;
-}
-.tfImg{
-  display    : inline-block;
-  width      : 8px;
-  height     : 8px;
-  background : #eee;
-  border     : 1px solid #777;
-  margin     : 1px 3px;
-  padding    : 2px;
-  cursor     : pointer;
-}
-
-/* === フィルタボタン内の画像色（SVG）============ */
-.tfImg path{
-  fill       : #196053;
-}
-/* === フィルタリスト ============================ */
-.tfList{
-  display    : inline-block;
-  position   : absolute;
-  max-width  : 300px;
-  min-width  : 140px;
-  background : #fff;
-  border     : 1px solid #777;
-  top        : 15px;
-  left       : 0;
-  line-height: 1.1;
-  font-weight: normal;
-}
-/* === フィルタリスト内のform ==================== */
-.tfList form{
-  max-height : 150px;
-  overflow   : scroll;
-  overflow   : overflow-y;
-  overflow   : auto;
-}
-/* === フィルタリスト内のチェックボックス ======== */
-.tfMeisai{
-  text-align : left;
-  padding    : 1px;
-}
-/* === フィルタリスト内の文字位置合わせ ========== */
-.tfMeisai label{
-  padding    : 0 3px 0 3px;
-}
-/* === OK/CANCELボタン =========================== */
-.tfBtnArea{
-  text-align : center;
-  font-size  : 8pt;
-  padding    : 3px 5px;
-}
-.tfBtnArea input{
-  display    : inline-block;
-  margin     : 3px 5px;
-}
-/* === 含むボタンの入力エリア ==================== */
-.tfInStr{
-  padding    : 5px 3px ;
-  border-top : 1px solid #999;
-  border-bottom: 1px solid #999;
-}
-.tfInStr input{
-  box-sizing : border-box;
-  width      : 95%;
-  padding    : 1px 3px;
-  font-weight: normal;
-  font-size  : 95%;
-  border     : 1px solid #ccc;
-}
-/* === フィルタ非表示 ============================ */
-#sampleTable tr[cmanFilterNone]{
-  display    : none; 
-}
-
- /* --- （参考）テーブル全体のスタイル指定 ------- */
-#sampleTable {
-  margin             : 10px;
-  padding            : 3px;
-  /* max-width          : 500px;
-  min-width          : 200px; */
-  border-collapse: collapse;
-  border-spacing : 0;                /* 罫線間余白 */
-  font-size      : 10pt;
-  width:50vw;
-}
- /* --- ヘッダーのスタイル指定 ------------------- */
-#sampleTable th {
-  text-align    : center;            
-  font-weight   : bold;
-  padding       : 3px 5px;
-  border        : 1px #666666 solid; 
-  background    : #a8f5dc;
-  white-space   : nowrap;
-}
- /* --- 明細のスタイル指定 ----------------------- */
-#sampleTable td {
-  text-align    : left;
-  padding       : 3px 5px;
-  border        : 1px #666666 solid;
-  white-space   : nowrap;
-}

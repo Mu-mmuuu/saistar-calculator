@@ -1,70 +1,14 @@
-# %%time
-def score_calculator():    
+import sys
+import math
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import random
+import time
+import json
+
+def score_calculator(song_name,idol_number,appeal,Pskill_name,Pskill_Lv,trial):    
 # def calculator(song_name,appeal,idol,Pskill_fullname,Pskill_Lv,trial):
-
-    import math
-    import pandas as pd
-    import matplotlib.pyplot as plt
-    import numpy as np
-    import random
-    import time
-    from flask import Flask, render_template
-    # import mysql.connector
-
-    #データベースの読み込み
-    # cnx = None
-    # cnx = mysql.connector.connect(
-    # user='SideMuser',
-    # password='Altessimo@SEM315',
-    # host='localhost',
-    # database = 'sidem'
-    # )
-    # cursor = cnx.cursor()
-    # sql= "select * from idol"
-    # cursor.execute(sql)
-    # rows = cursor.fetchall()
-    # DB_idol_df = pd.DataFrame(rows, columns=[x[0] for x in cursor.description])
-    # # DB_idol_df.reset_index(inplace=True)
-    # DB_idol = DB_idol_df.to_numpy()
-    # # inputdf = pd.DataFrame(columns = DB_idol.columns)
-
-    # cursor2 = cnx.cursor()
-    # sql2 = "select * from song"
-    # cursor2.execute(sql2)
-    # rows2 = cursor2.fetchall()
-    # DB_song = pd.DataFrame(rows2, columns=[x[0] for x in cursor2.description])
-    # # DB_song.reset_index(inplace=True)
-    # DB_song = DB_song.to_numpy()
-
-    # cursor3 = cnx.cursor()
-    # sql3 = "select * from time"
-    # cursor3.execute(sql3)
-    # rows3 = cursor3.fetchall()
-    # DB_time = pd.DataFrame(rows3, columns=[x[0] for x in cursor3.description])
-    # DB_time = DB_time.to_numpy()
-
-    # cursor4 = cnx.cursor()
-    # sql4 = "select * from type"
-    # cursor4.execute(sql4)
-    # rows4 = cursor4.fetchall()
-    # DB_type = pd.DataFrame(rows4, columns=[x[0] for x in cursor4.description])
-    # DB_type = DB_type.to_numpy()
-
-    # cursor5 = cnx.cursor()
-    # sql5 = "select * from notes_rate"
-    # cursor5.execute(sql5)
-    # rows5 = cursor5.fetchall()
-    # DB_notes_rate = pd.DataFrame(rows5, columns=[x[0] for x in cursor5.description])
-    # DB_notes_rate = DB_notes_rate.to_numpy()
-
-    # cursor6 = cnx.cursor()
-    # sql6 = "select * from Pskill"
-    # cursor6.execute(sql6)
-    # rows6 = cursor6.fetchall()
-    # DB_Pskill = pd.DataFrame(rows6, columns=[x[0] for x in cursor6.description])
-    # DB_Pskill = DB_Pskill.to_numpy()
-
-    # cnx.close()
 
     filename = './static/B_スコア予測用data_2.4.xlsx'
     DB_song = pd.read_excel(filename,index_col='No',sheet_name='song')
@@ -75,21 +19,18 @@ def score_calculator():
     DB_idol_df.reset_index(inplace=True)
     DB_idol = DB_idol_df.to_numpy()
 
-    song_name ='MES'
-    appeal = '158900'
-    idol = [120,163,337,388,403,454]
-    Pskill_fullname = '確率UP'
-    Pskill_Lv = '1'
-
     #入力値処理
-
-    # if trial == 0:
-    #     trial = 1000
-    trial = 1000
+    if trial == 0:
+        trial = 1000
+    elif trial > 10000:
+        trial = 10000
+    else:
+        trial = trial
 
     song_data = DB_song[np.any(DB_song==song_name,axis=1)][0]
     song_No = song_data[0]
     song_No = int(song_No)
+    # song_No = song_name
     song_fullname = song_data[1]
     song_lv = song_data[4]
 
@@ -98,8 +39,8 @@ def score_calculator():
     song_lv_ef = round(0.1052 * song_lv + 2.6144 , 2)
     accuracy = 1
     mode = 'normal'
-
-    idol = np.array(idol,dtype=int)
+    idol = np.array(idol_number,dtype=int)
+    # idol = np.array(idol,dtype=int)
     idol -= 1
     idol_data = DB_idol[[idol[0],idol[1],idol[2],idol[3],idol[4],idol[5]],:]
 
@@ -126,14 +67,23 @@ def score_calculator():
     np.place(skill_name,skill_name == 'ライフ回復','else')
     np.place(skill_name,skill_name == 'ダメージガード','else')
 
-    if Pskill_fullname == '延長':
-        Pskill_name = 'expand'
-    elif Pskill_fullname == '確率UP':
-        Pskill_name = 'chance'
-    elif Pskill_fullname == '効果UP':
-        Pskill_name = 'enhance'
+    # if Pskill_fullname == '延長':
+    #     Pskill_name = 'expand'
+    # elif Pskill_fullname == '確率UP':
+    #     Pskill_name = 'chance'
+    # elif Pskill_fullname == '効果UP':
+    #     Pskill_name = 'enhance'
+    # else:
+    #     Pskill_name = 'support'
+
+    if Pskill_name == 'expand':
+        Pskill_fullname = '延長'
+    elif Pskill_name == 'chance':
+        Pskill_fullname = '確率UP'
+    elif Pskill_name == 'enhance':
+        Pskill_fullname = '効果UP'
     else:
-        Pskill_name = 'support'
+        Pskill_fullname = 'その他'
 
     Pskill_Lv = int(Pskill_Lv)
 
@@ -344,7 +294,26 @@ def score_calculator():
     dflast = dflast.rename(columns={'index':'　　　','スコア': 'スコア','SPノーツ直後': 'SPノーツ直後'})
 
     pd.options.display.float_format = '{:.0f}'.format
-    # display(dflast)
-    # print('スキル発動回数max：',skill_maxact)
 
-    return dflast, song_fullname, appeal, Pskill_fullname, Pskill_Lv_original, inputdf
+    # print('スキル発動回数max：',skill_maxact)
+    # return dflast, song_fullname, appeal, Pskill_fullname, Pskill_Lv_original, inputdf
+    return {
+        # "dflast": dflast,
+        "song_fullname": song_fullname,
+        "appeal": appeal,
+        "Pskill_fullname": Pskill_fullname,
+        "Pskill_Lv_original": Pskill_Lv_original,
+        # "inputdf": inputdf
+    }
+
+if __name__ == '__main__':
+    # コマンドライン引数から値を取得
+    arg1 = sys.argv[1]
+    arg2 = [int(x) for x in sys.argv[2].split(',')]
+    arg3 = int(sys.argv[3])
+    arg4 = sys.argv[4]
+    arg5 = int(sys.argv[5])
+    arg6 = int(sys.argv[6])
+
+    result = score_calculator(arg1, arg2, arg3, arg4, arg5, arg6)
+    json_result = json.dumps(result)

@@ -1,11 +1,33 @@
-{% extends 'layout.html' %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="icon" href="static/img/favicon.ico" sizes="32x32">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>サイスタスコア計算機</title>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/jquery.tablesorter.min.js"></script> -->
+</head>
 
-    <header>
-        <h1>サイスタスコア計算機</h1>
-    </header>
+<body class="no-scrollable-main">
+<div class="cf">
+    <div id="header-container" class="header-container">
+        <div id="header-container-in" class="header-container-in">
+            <header class="page-header"> 
+                        アイドルマスターSideM GROWING STARS<br>スコア計算機
+                    </div>
+            </header>
+        </div>
+    </div>
+    <div id="content" class="content cf">
+    <div class="wrap">
+            <header class="article-header post-update">
+                最終更新：2023.3.26 
+            </header>
     <main>
-        <form action="/result">
+        <!-- <form action="" method="get" class="form-example"> -->
+        <article>
             <div class = "song">
                 <label class="hint"><span>曲名を選択してください：</span>
                     <select id="song_name">
@@ -69,26 +91,31 @@
             </div>
             <div class = "detail">
                 <div class = "appeal_pskill">
-                    <label>アピール値：<input type="number" id="appeal" required minlength="1" maxlength="8"></label><br>
+                    <label>アピール値：<input type="number" id="appeal" required minlength="1" value="100000" min="0" max="1000000"></label><br>
                     <label>プロデューサースキル：</label>
                         <select id="Pskill_name" size="1">
                             <option value="expand">延長</option>
                             <option value="chance">確率UP</option>
                             <option value="enhance">効果UP</option>
-                            <option value="else">その他</option>
+                            <option value="support">その他</option>
                         </select>
                     <br>
                     <label>Lv：</label>
-                    <input type="number" id="Pskill_Lv" required minlength="1" maxlength="1" value="1" max="3" min="1">
+                    <input type="number" id="Pskill_Lv" value="1" max="3" min="1">
                 </div>
                 <div class = "option">
-                    <label>AUTOライブ：<input type="checkbox" id = "mode"></label>
-                    <br><label>試行回数：<input type="number" id="trial" required minlength="1" value = "1000" size="6" max="10000"></label>
+                    <!-- <label>AUTOライブ：<input type="checkbox" id = "mode"></label> -->
+                    <br><label>試行回数：<input type="number" id="trial" required minlength="1" required maxlength="1" value = "1000" size="6" max="10000"></label>
                 </div>
             </div>
-            <button type="submit" id="start_button" onclick="location.href='/result'">計算開始</button>
-        </form>
-    </main>
+            <button id="start_button" onclick="runPythonScript()">計算開始</button>
+        </article>
+        <!-- </form> -->
+        <div id="result"></div>
+        </main>
+    
     <script src="../static/script.js"></script>
 
-   {% endblock %}
+</body>
+
+</html>
