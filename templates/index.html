@@ -4,7 +4,6 @@
     <header>
         <h1>サイスタスコア計算機</h1>
     </header>
-    <script src="../static/script.js"></script>
     <main>
         <form action="/result">
             <div class = "song">
@@ -76,7 +75,7 @@
                             <option value="expand">延長</option>
                             <option value="chance">確率UP</option>
                             <option value="enhance">効果UP</option>
-                            <option value="support">その他</option>
+                            <option value="else">その他</option>
                         </select>
                     <br>
                     <label>Lv：</label>
@@ -90,5 +89,6 @@
             <button type="submit" id="start_button" onclick="location.href='/result'">計算開始</button>
         </form>
     </main>
+    <script src="../static/script.js"></script>
 
    {% endblock %}

@@ -7,11 +7,11 @@ const PskillLvOptions = {
 
 // 2. Pskill選択肢の変更イベントを監視する
 const PskillSelect = document.getElementById('Pskill_name');
-PskillSelect.addEventListener('change', (event) => {
+const PskillLvInput = document.getElementById('Pskill_Lv');
 
-  // 3. PskillLv選択肢を更新する
+PskillSelect.addEventListener('change', (event) => {
   const selectedPskill = event.target.value;
-  const PskillLvInput = document.getElementById('Pskill_Lv');
+  // 3. PskillLv選択肢を更新する
   PskillLvInput.min = Math.min(...PskillLvOptions[selectedPskill]);
   PskillLvInput.max = Math.max(...PskillLvOptions[selectedPskill]);
   PskillLvInput.value = PskillLvInput.min;
@@ -19,9 +19,8 @@ PskillSelect.addEventListener('change', (event) => {
 
 // 初期状態でPskillLv選択肢を更新する
 const selectedPskill = PskillSelect.value;
-const PskillLvInput = document.getElementById('Pskill_Lv');
-PskillLvInput.min = Math.min(...PskillOptions[selectedPskill]);
-PskillLvInput.max = Math.max(...PskillOptions[selectedPskill]);
+PskillLvInput.min = Math.min(...PskillLvOptions[selectedPskill]);
+PskillLvInput.max = Math.max(...PskillLvOptions[selectedPskill]);
 
 
 // PskillLv選択肢の変更イベントを監視する
