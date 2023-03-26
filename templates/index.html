@@ -69,14 +69,17 @@
             </div>
             <div class = "detail">
                 <div class = "appeal_pskill">
-                    <label>アピール値：<input type="number" id="appeal" required minlength="1" maxlength="8"></label>
-                    <br><label>プロデューサースキル：<select id="Pskill_name" size="1">
-                        <option value="expand">延長</option>
-                        <option value="chance">確率UP</option>
-                        <option value="enhance">効果UP</option>
-                        <option value="support">その他</option>
-                    </select></label>
-                    <br><label>Lv：<input type="number" id="Pskill_Lv" required minlength="1" maxlength="1" value="1" max="3" min="1"></label>
+                    <label>アピール値：<input type="number" id="appeal" required minlength="1" maxlength="8"></label><br>
+                    <label>プロデューサースキル：</label>
+                        <select id="Pskill_name" size="1">
+                            <option value="expand">延長</option>
+                            <option value="chance">確率UP</option>
+                            <option value="enhance">効果UP</option>
+                            <option value="support">その他</option>
+                        </select>
+                    <br>
+                    <label>Lv：</label>
+                    <input type="number" id="Pskill_Lv" required minlength="1" maxlength="1" value="1" max="3" min="1">
                 </div>
                 <div class = "option">
                     <label>AUTOライブ：<input type="checkbox" id = "mode"></label>
@@ -85,23 +88,6 @@
             </div>
             <button type="submit" id="start_button" onclick="location.href='/result'">計算開始</button>
         </form>
-        <section id="help_window">
-            <dl>
-                <dt>プロデューサースキル</dt>
-                <dd>
-                    <table>
-                        <tr><th>スキル名</th><th>Lv上限</th></tr>
-                        <tr><td>延長</td><td>3</td></tr>
-                        <tr><td>確率UP</td><td>2</td></tr>
-                        <tr><td>効果UP</td><td>1</td></tr>
-                        <tr><td>その他</td><td>1</td></tr>
-                    </table>
-                </dd>
-            </dl>
-        </section>
-        <!-- <section id ="select_window">
-            <p>楽曲</p>
-        </section> -->
     </main>
 
    {% endblock %}
