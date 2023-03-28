@@ -23,7 +23,7 @@
     <div id="content" class="content cf">
     <div class="wrap">
             <header class="article-header post-update">
-                最終更新：2023.3.26 
+                最終更新：2023.3.28 
             </header>
     <main>
         <!-- <form action="" method="get" class="form-example"> -->
@@ -110,8 +110,13 @@
             </div>
             <button id="start_button" onclick="runPythonScript()">計算開始</button>
         </article>
-        <!-- </form> -->
-        <div id="result"></div>
+        <div class="result-container">
+            <div id="loading">
+                <div id="status_message">計算中...</div>
+                <div id="loader"></div>
+            </div>
+            <div id="result"></div>
+        </div>
         </main>
     
     <script src="../static/script.js"></script>

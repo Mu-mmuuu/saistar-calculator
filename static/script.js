@@ -30,8 +30,15 @@ PskillLvInput.addEventListener('change', (event) => {
   console.log(selectedPskillLv);
 });
 
+function runCalculation() {
+  document.getElementById("result").style.display = "none";
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("start_button").disabled = true;
 
+
+}
 function runPythonScript() {
+  runCalculation();
   // 他のinputから値を取得
   var input1_value = document.getElementById("song_name").value;
   var input2_value = document.getElementById("idol_number").value.split(',').map(function(item) {
@@ -63,10 +70,13 @@ function runPythonScript() {
     }
   };
   xhr.send();
+  
 }
 
 function updateResult(result) {
+  document.getElementById("start_button").disabled = false;
+  document.getElementById("loading").style.display = "none";
   document.getElementById('result').innerHTML = result;
+  document.getElementById("result").style.display = "block";
 }
-
 
