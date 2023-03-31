@@ -1,4 +1,10 @@
-/* @charset = "utf-8"; */
+body{
+  margin:0px;
+  font-family:Arial, Helvetica, sans-serif; 
+  color:#194969; 
+  font-weight:bold;
+}
+
 .page-header{
     background-color:mediumaquamarine;
     color:#fff;
@@ -10,30 +16,29 @@
     font-size: 150%;
     text-shadow:2px 3px 5px #124c36;
 }
-article{width:50%}
+
 .article-header{
-    vertical-align: center;
-    background-color:rgb(202, 246, 231);
-    border-top:10px solid;
-    border-image:linear-gradient(to left,mediumaquamarine,rgb(37, 126, 97));
-    border-image-slice: 1;
-    padding:10px 50px;
-    text-align:left;
+  vertical-align: center;
+  background-color:rgb(202, 246, 231);
+  border-top:10px solid;
+  border-image:linear-gradient(to left,mediumaquamarine,rgb(37, 126, 97));
+  border-image-slice: 1;
+  padding:10px 50px;
+  text-align:left;
 }
 
-body{
-  margin:0px;
-  font-family:Arial, Helvetica, sans-serif; 
-  color:#194969; 
-  font-weight:bold;
+main{
+  display:flex;
+  width:auto;
 }
 
-main{display:flex; }
+.input-container{width:30%}
 
 .song{
   margin-bottom:5%;
   padding:5% 5% 2% 10%;
 }
+
 .idol,.appeal_pskill, .option {
   padding:2% 5% 2% 10%;
   margin-bottom:5%;
@@ -46,42 +51,20 @@ main{display:flex; }
   cursor: pointer;
 }
 
-.description{
-  display:none;
-  position: absolute;
-  padding: 10px;
-  font-size: 12px;
-  line-height: 1.6em;
-  color: #fff;
-  border-radius: 5px;
-  background: gray;
-  width: 250px;
-}
-.description:before {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 30%;
-  border: 15px solid transparent;
-  border-top: 15px solid gray;
-  margin-left: -15px;
-  /* transform: rotateZ(90deg); */
-}
-.hint:hover .description{
-  display: inline-block;
-  top: -150%;
-  left: -10%;
-}
-
 .result-container{
   padding: 30px;
-  width:50%;
+  width:auto;
 }
-#result{
-  padding:5%;
-}
+
 #loading{
   display:none;
+}
+
+#status_message {
+  position: relative;
+  left: 50%;
+  top: 65%;
+  color:#737a78;
 }
 
 #loader {
@@ -95,15 +78,17 @@ main{display:flex; }
   height: 50px;
   animation: spin 1s linear infinite; /* アニメーションを追加 */
 }
-#status_message {
-  position: relative;
-  left: 50%;
-  top: 65%;
-  color:#737a78;
-}
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+#input-table,#result-table {
+  border-collapse: collapse;
+  font-weight: normal;
+  font-size: 80%;
+  white-space:nowrap;
+}
+
 

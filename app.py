@@ -6,23 +6,22 @@ from calculator import score_calculator
 
 app = Flask(__name__,static_folder = "./static/")
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
-  return render_template("index.html")
+    if request.method == 'POST':
+        # POSTリクエストからデータを取得
+        data = request.get_json()
+        song_name = data['song_name']
+        idol_number = [int(x) for x in data['idol_number']]
+        appeal = int(data['appeal'])
+        Pskill_name = data['Pskill_name']
+        Pskill_Lv = int(data['Pskill_Lv'])
+        trial = int(data['trial'])
 
-@app.route('/execute-command',methods=['GET'])
-def execute_command():
-    command = request.args.get('command')
-    if not command:
-        return jsonify(error='No command provided.')
-    try:
-        # 入力されたコマンドを安全に実行する
-        result = subprocess.check_output(command.split(), stderr=subprocess.STDOUT)
-        result_str = result.decode('utf-8').strip() # バイト列を文字列に変換して改行を削除
-        return jsonify(result=result_str) # レスポンスをJSON形式で返す
-    except subprocess.CalledProcessError as e:
-        # コマンドの実行に失敗した場合
-        return jsonify(error=e.output.decode('utf-8').strip()) # エラーメッセージを返す
+        # 計算結果を返す
+        score = score_calculator(song_name, idol_number, appeal,Pskill_name,Pskill_Lv,trial)
+        return jsonify(score)
+    return render_template("index.html")
 
 if __name__ == '__main__':
     app.run(debug=True)

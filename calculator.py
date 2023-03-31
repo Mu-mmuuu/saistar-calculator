@@ -1,11 +1,7 @@
-import sys
 import math
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy as np
 import random
-import time
-import json
 
 def score_calculator(song_name,idol_number,appeal,Pskill_name,Pskill_Lv,trial):    
 # def calculator(song_name,appeal,idol,Pskill_fullname,Pskill_Lv,trial):
@@ -30,7 +26,6 @@ def score_calculator(song_name,idol_number,appeal,Pskill_name,Pskill_Lv,trial):
     song_data = DB_song[np.any(DB_song==song_name,axis=1)][0]
     song_No = song_data[0]
     song_No = int(song_No)
-    # song_No = song_name
     song_fullname = song_data[1]
     song_lv = song_data[4]
 
@@ -40,15 +35,12 @@ def score_calculator(song_name,idol_number,appeal,Pskill_name,Pskill_Lv,trial):
     accuracy = 1
     mode = 'normal'
     idol = np.array(idol_number,dtype=int)
-    # idol = np.array(idol,dtype=int)
     idol -= 1
     idol_data = DB_idol[[idol[0],idol[1],idol[2],idol[3],idol[4],idol[5]],:]
 
     inputdf = pd.DataFrame(idol_data,columns= DB_idol_df.columns,index=idol_data[:,0])
     inputdf = inputdf.drop(['No','センター効果','スキル_後半','vo','da','vi','計','日付'],axis=1)
     inputdf.rename(columns ={'スキル_前半':'スキル'}, inplace =True)
-
-    # display(inputdf)
 
     skill_fullname = idol_data[:,6]
     interval = idol_data[:,8]
@@ -66,15 +58,6 @@ def score_calculator(song_name,idol_number,appeal,Pskill_name,Pskill_Lv,trial):
     np.place(skill_name,skill_name == '判定強化','else')
     np.place(skill_name,skill_name == 'ライフ回復','else')
     np.place(skill_name,skill_name == 'ダメージガード','else')
-
-    # if Pskill_fullname == '延長':
-    #     Pskill_name = 'expand'
-    # elif Pskill_fullname == '確率UP':
-    #     Pskill_name = 'chance'
-    # elif Pskill_fullname == '効果UP':
-    #     Pskill_name = 'enhance'
-    # else:
-    #     Pskill_name = 'support'
 
     if Pskill_name == 'expand':
         Pskill_fullname = '延長'
@@ -98,20 +81,11 @@ def score_calculator(song_name,idol_number,appeal,Pskill_name,Pskill_Lv,trial):
     notes = score_data['time'].to_numpy()[:,song_No]
     notes = len(notes[~np.isnan(notes)])
 
-    # score_data = pd.read_excel(filename,sheet_name=['time','type','notes_rate'])
-    # notes = DB_time[:,song_No]
-    # notes = len(notes[~np.isnan(notes)])
-
     score_data = np.vstack([score_data['time'].to_numpy()[:notes,song_No],
                            score_data['type'].to_numpy()[:notes,song_No],
                            score_data['notes_rate'].to_numpy()[:notes,song_No]
                           ])
-
-    # score_data = np.vstack([DB_time[:notes,song_No],
-    #                        DB_type[:notes,song_No],
-    #                        DB_notes_rate[:notes,song_No]
-    #                       ])
-
+    
     DB_Pskill = pd.read_excel(filename,sheet_name='Pskill')
     DB_Pskill = DB_Pskill.to_numpy()
     Pskill_data = DB_Pskill[np.any(DB_Pskill==Pskill_name,axis=1)][Pskill_Lv-1,:]
@@ -269,13 +243,6 @@ def score_calculator(song_name,idol_number,appeal,Pskill_name,Pskill_Lv,trial):
     results[-1] = calculator(np.array([1,1,1,1,1,1]))
     results[-2] = calculator(np.array([0,0,0,0,0,0]))
 
-
-    # 結果出力
-    # print('\n')
-    # print('楽曲：' + song_fullname)
-    # print('アピール値: ' + str(appeal))
-    # print('Pスキル： '+ Pskill_fullname,Pskill_Lv_original)
-
     resultdf = pd.DataFrame(data=results,columns=['スコア','SPノーツ直後'])
     total_df = pd.DataFrame(data=results[:,0],columns=['スコア'])
     SP_df = pd.DataFrame(data=results[:,1],columns=['SPノーツ直後'])
@@ -294,26 +261,8 @@ def score_calculator(song_name,idol_number,appeal,Pskill_name,Pskill_Lv,trial):
     dflast = dflast.rename(columns={'index':'　　　','スコア': 'スコア','SPノーツ直後': 'SPノーツ直後'})
 
     pd.options.display.float_format = '{:.0f}'.format
+    
+    dflast = dflast.to_html(index=False,table_id='result-table')
+    inputdf = inputdf.to_html(table_id='input-table')
 
-    # print('スキル発動回数max：',skill_maxact)
-    # return dflast, song_fullname, appeal, Pskill_fullname, Pskill_Lv_original, inputdf
-    return {
-        # "dflast": dflast,
-        "song_fullname": song_fullname,
-        "appeal": appeal,
-        "Pskill_fullname": Pskill_fullname,
-        "Pskill_Lv_original": Pskill_Lv_original,
-        # "inputdf": inputdf
-    }
-
-if __name__ == '__main__':
-    # コマンドライン引数から値を取得
-    arg1 = sys.argv[1]
-    arg2 = [int(x) for x in sys.argv[2].split(',')]
-    arg3 = int(sys.argv[3])
-    arg4 = sys.argv[4]
-    arg5 = int(sys.argv[5])
-    arg6 = int(sys.argv[6])
-
-    result = score_calculator(arg1, arg2, arg3, arg4, arg5, arg6)
-    json_result = json.dumps(result)
+    return  song_fullname, appeal, Pskill_fullname, Pskill_Lv_original,inputdf, dflast, 

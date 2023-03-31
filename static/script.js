@@ -30,53 +30,52 @@ PskillLvInput.addEventListener('change', (event) => {
   console.log(selectedPskillLv);
 });
 
-function runCalculation() {
+// Startボタンがクリックされたときの処理
+function RunPython(){
   document.getElementById("result").style.display = "none";
   document.getElementById("loading").style.display = "block";
   document.getElementById("start_button").disabled = true;
+  // input要素から値を取得
+  var song_name = document.getElementById("song_name").value;
+  var idol_number = document.getElementById("idol_number").value.split(",");
+  var appeal = parseInt(document.getElementById("appeal").value);
+  var Pskill_name = document.getElementById("Pskill_name").value;
+  var Pskill_Lv = parseInt(document.getElementById("Pskill_Lv").value);
+  var trial = parseInt(document.getElementById("trial").value);
 
+  // Pythonコードに渡すためのデータを準備
+  var data = {
+    "song_name": song_name,
+    "idol_number": idol_number,
+    "appeal": appeal,
+    "Pskill_name": Pskill_name,
+    "Pskill_Lv":Pskill_Lv,
+    "trial":trial
+  };
 
-}
-function runPythonScript() {
-  runCalculation();
-  // 他のinputから値を取得
-  var input1_value = document.getElementById("song_name").value;
-  var input2_value = document.getElementById("idol_number").value.split(',').map(function(item) {
-    return parseInt(item, 10);
-  });
-  var input3_value = document.getElementById("appeal").value;
-  var input4_value = document.getElementById("Pskill_name").value;
-  var input5_value = document.getElementById("Pskill_Lv").value;
-  var input6_value = document.getElementById("trial").value;
-
-    // Pythonスクリプトに引数として渡すコマンドを作成
-  var command = "python calculator.py " + input1_value + " " + input2_value + " " + input3_value + " " + input4_value + " " + input5_value + " " + input6_value;
-
-  // コマンドを実行
-  // var command = 'your-command'; // 実行するコマンドを指定する
   var xhr = new XMLHttpRequest();
-  console.log(xhr)
-  xhr.open('GET', '/execute-command?command=' + encodeURIComponent(command), true);
+  xhr.open("POST", "/");
+  xhr.setRequestHeader("Content-Type", "application/json");
   xhr.onload = function() {
     if (xhr.status === 200) {
-      var response = JSON.parse(xhr.responseText);
-      if (response.result) {
-        updateResult(response.result);
-      } else {
-        updateResult(response.error);
-      }
+      data_parse = JSON.parse(xhr.responseText);
+      document.getElementById("result").innerHTML = data_parse;
+      document.getElementById("result").style.display = "block";
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("start_button").disabled = false;
+    
     } else {
-      console.log('Request failed. Status code: ' + xhr.status);
+      console.error("Error:", xhr.statusText);
     }
   };
-  xhr.send();
-  
-}
+  xhr.onerror = function() {
+    console.error("Error:", xhr.statusText);
+  };
+  xhr.send(JSON.stringify(data));
+  };
 
-function updateResult(result) {
-  document.getElementById("start_button").disabled = false;
-  document.getElementById("loading").style.display = "none";
-  document.getElementById('result').innerHTML = result;
-  document.getElementById("result").style.display = "block";
-}
+
+
+
+
 
