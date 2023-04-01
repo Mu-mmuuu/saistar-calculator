@@ -7,29 +7,45 @@ const PskillLvOptions = {
 
 // 2. Pskill選択肢の変更イベントを監視する
 const PskillSelect = document.getElementById('Pskill_name');
-const PskillLvInput = document.getElementById('Pskill_Lv');
+// const PskillLvInput = document.getElementById('Pskill_Lv');
+const PskillLvSelect = document.getElementById('Pskill_Lv');
 
 PskillSelect.addEventListener('change', (event) => {
   const selectedPskill = event.target.value;
   // 3. PskillLv選択肢を更新する
-  PskillLvInput.min = Math.min(...PskillLvOptions[selectedPskill]);
-  PskillLvInput.max = Math.max(...PskillLvOptions[selectedPskill]);
-  PskillLvInput.value = PskillLvInput.min;
+  // PskillLvInput.min = Math.min(...PskillLvOptions[selectedPskill]);
+  // PskillLvInput.max = Math.max(...PskillLvOptions[selectedPskill]);
+  // PskillLvInput.value = PskillLvInput.min;
+
+  PskillLvSelect.innerHTML = '';
+  PskillLvOptions[selectedPskill].forEach((level) => {
+    const option = document.createElement('option');
+    option.value = level;
+    option.text = `${level}`;
+    PskillLvSelect.appendChild(option);
+  });
 });
 
 // 初期状態でPskillLv選択肢を更新する
 const selectedPskill = PskillSelect.value;
-PskillLvInput.min = Math.min(...PskillLvOptions[selectedPskill]);
-PskillLvInput.max = Math.max(...PskillLvOptions[selectedPskill]);
+// PskillLvInput.min = Math.min(...PskillLvOptions[selectedPskill]);
+// PskillLvInput.max = Math.max(...PskillLvOptions[selectedPskill]);
 
-
-// PskillLv選択肢の変更イベントを監視する
-PskillLvInput.addEventListener('change', (event) => {
-  // 選択されたPskillLvの値を取得する
-  const selectedPskillLv = parseInt(event.target.value, 10);
-  console.log(selectedPskillLv);
+PskillLvOptions[selectedPskill].forEach((level) => {
+  const option = document.createElement('option');
+  option.value = level;
+  option.text = `${level}`;
+  PskillLvSelect.appendChild(option);
 });
 
+function checkInput() {
+  var input = document.getElementById("idol_number").value;
+  if (input.trim() === "") {
+    alert("入力してください");
+    return false;
+  }
+  return true;
+}
 // Startボタンがクリックされたときの処理
 function RunPython(){
   document.getElementById("result").style.display = "none";
