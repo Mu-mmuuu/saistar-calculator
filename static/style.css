@@ -30,6 +30,7 @@ body{
 main{
   display:flex;
   width:auto;
+  margin-bottom: 10px; 
 }
 
 .input-container{width:30%}
@@ -91,4 +92,60 @@ main{
   white-space:nowrap;
 }
 
+th{
+  background-color:#c1d7d1;
+  text-align: center;
+  padding:5px 10px 5px 10px;
+}
+td{
+  padding:5px 10px 5px 10px;
+}
+
+footer{
+  margin:0px;
+  font-size:80%;
+  font-weight: normal;
+  background:linear-gradient(to right,#b1c9e3,#dceaf8);
+  border-top:10px solid;
+  border-image:linear-gradient(to left,#97bee7, #043c78);
+  border-image-slice: 1;
+  padding:10px;
+  width:100%;
+  text-align:center;
+  position: relative;/*←絶対位置*/
+  bottom: 0; /*下に固定*/
+}
+li{
+  list-style:none;
+  margin:0px;
+}
+.precaution{
+  font-size:50%;
+  margin:auto;
+}
+
+@media (max-width: 767px) { 
+  *{font-size:10px;}
+  .page-header{
+    padding:10px;
+    font-weight: bold;
+    font-size: 150%;
+    text-shadow:2px 3px 5px #124c36;
+  }
+  .article-header{
+    border-top:5px solid;
+    padding:10px;
+  }
+  main{display:block;}
+  .input-container{width:auto}
+
+  .song,.idol,.appeal_pskill, .option{
+    margin-bottom:1%;
+  }
+
+  .precaution{
+    font-size:30%; 
+    padding:5px;
+  }
+}
 

@@ -243,9 +243,9 @@ def score_calculator(song_name,idol_number,appeal,Pskill_name,Pskill_Lv,trial):
     results[-1] = calculator(np.array([1,1,1,1,1,1]))
     results[-2] = calculator(np.array([0,0,0,0,0,0]))
 
-    resultdf = pd.DataFrame(data=results,columns=['スコア','SPノーツ直後'])
+    resultdf = pd.DataFrame(data=results,columns=['スコア','SP直後'])
     total_df = pd.DataFrame(data=results[:,0],columns=['スコア'])
-    SP_df = pd.DataFrame(data=results[:,1],columns=['SPノーツ直後'])
+    SP_df = pd.DataFrame(data=results[:,1],columns=['SP直後'])
 
     percentile_list = [1,.999,.995,.99, .97, .95, .9, .5,0]
     percentile_index = ['max','0.1%','0.5%','1%','3%','5%','10%','50%','min']
@@ -254,15 +254,16 @@ def score_calculator(song_name,idol_number,appeal,Pskill_name,Pskill_Lv,trial):
     dflast.index = percentile_index
 
     SP_df = SP_df.quantile(q=percentile_list)
-    SP_df['SPノーツ直後'] =SP_df['SPノーツ直後'].astype('int')
+    SP_df['SP直後'] =SP_df['SP直後'].astype('int')
     SP_df.index = percentile_index
     dflast = pd.concat([dflast,SP_df],axis=1)
     dflast.reset_index(inplace=True)
-    dflast = dflast.rename(columns={'index':'　　　','スコア': 'スコア','SPノーツ直後': 'SPノーツ直後'})
+    dflast = dflast.rename(columns={'index':'　　　','スコア': 'スコア','SP直後': 'SP直後'})
 
     pd.options.display.float_format = '{:.0f}'.format
     
     dflast = dflast.to_html(index=False,table_id='result-table')
     inputdf = inputdf.to_html(table_id='input-table')
 
-    return  song_fullname, appeal, Pskill_fullname, Pskill_Lv_original,inputdf, dflast, 
+    return  inputdf, dflast
+    # return  song_fullname, appeal, Pskill_fullname, Pskill_Lv_original,inputdf, dflast 
