@@ -18,8 +18,8 @@ def score_calculator(song_name,idol_number,appeal,Pskill_name,Pskill_Lv,trial):
     #入力値処理
     if trial == 0:
         trial = 1000
-    elif trial > 10000:
-        trial = 10000
+    elif trial > 50000:
+        trial = 50000
     else:
         trial = trial
 
